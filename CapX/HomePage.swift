@@ -129,6 +129,7 @@ struct GraphCard : View {
                         .foregroundStyle(Color.green)
                 }
             }
+            PriceChart()
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
