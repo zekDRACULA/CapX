@@ -17,7 +17,7 @@ struct HomePage: View {
     var body: some View {
         SearchBar(key: $key)
         GraphCard()
-        PriceCard()
+        PriceCard(priceCard: priceCardData[0])
         Spacer()
     }
 }
@@ -40,6 +40,7 @@ struct SearchBar : View {
 }
 
 struct PriceCard : View {
+    var priceCard : PriceCardModel
     var body: some View {
         VStack(alignment: .leading, spacing: 4){
             HStack{
@@ -47,7 +48,7 @@ struct PriceCard : View {
                     .font(.title2)
                     .fontWeight(.semibold)
                 Spacer()
-                Text("225.89")
+                Text(priceCard.open)
                     .font(.title2)
                     .fontWeight(.bold)
             }
@@ -56,7 +57,7 @@ struct PriceCard : View {
                     .font(.title2)
                     .fontWeight(.semibold)
                 Spacer()
-                Text("227.37")
+                Text(priceCard.dayHigh)
                     .font(.title2)
                     .fontWeight(.bold)
             }
@@ -65,7 +66,7 @@ struct PriceCard : View {
                     .font(.title2)
                     .fontWeight(.semibold)
                 Spacer()
-                Text("223.03")
+                Text(priceCard.dayLow)
                     .font(.title2)
                     .fontWeight(.bold)
             }
@@ -74,7 +75,7 @@ struct PriceCard : View {
                     .font(.title2)
                     .fontWeight(.semibold)
                 Spacer()
-                Text("237.23")
+                Text(priceCard.fiftyTwoWeekHigh)
                     .font(.title2)
                     .fontWeight(.bold)
             }
@@ -83,7 +84,7 @@ struct PriceCard : View {
                     .font(.title2)
                     .fontWeight(.semibold)
                 Spacer()
-                Text("164.08")
+                Text(priceCard.fiftyTwoWeekLow)
                     .font(.title2)
                     .fontWeight(.bold)
             }
