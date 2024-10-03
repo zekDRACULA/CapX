@@ -7,10 +7,17 @@
 
 import SwiftUI
 
+#Preview {
+    HomePage()
+}
+
 struct HomePage: View {
+    
     @State var key : String = ""
     var body: some View {
         SearchBar(key: $key)
+        GraphCard()
+        PriceCard()
         Spacer()
     }
 }
@@ -18,7 +25,7 @@ struct HomePage: View {
 struct SearchBar : View {
     @Binding var key : String
     var body: some View {
-        TextField("Search... AAPL, MSFT", text: $key)
+        TextField("AAPL, MSFT Search", text: $key)
             .frame(maxWidth: .infinity)
             .frame(height: 50)
             //.background(Color.blue)
@@ -26,9 +33,70 @@ struct SearchBar : View {
             .padding(.horizontal)
             .overlay(
                 RoundedRectangle(cornerRadius: 14)
-                    .stroke(Color.blue, lineWidth: 2)
+                    .stroke(Color.black, lineWidth: 2)
             )
             .padding(.horizontal)
+    }
+}
+
+struct PriceCard : View {
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4){
+            HStack{
+                Text("Open")
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                Spacer()
+                Text("225.89")
+                    .font(.title2)
+                    .fontWeight(.bold)
+            }
+            HStack{
+                Text("High")
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                Spacer()
+                Text("227.37")
+                    .font(.title2)
+                    .fontWeight(.bold)
+            }
+            HStack{
+                Text("Low")
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                Spacer()
+                Text("223.03")
+                    .font(.title2)
+                    .fontWeight(.bold)
+            }
+            HStack{
+                Text("52 Week high")
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                Spacer()
+                Text("237.23")
+                    .font(.title2)
+                    .fontWeight(.bold)
+            }
+            HStack{
+                Text("52 Week Low")
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                Spacer()
+                Text("164.08")
+                    .font(.title2)
+                    .fontWeight(.bold)
+            }
+        }
+        .padding()
+        .frame(maxWidth: .infinity, alignment: .topLeading)
+        //.frame(maxHeight: maxHeight: UIScreen.main.bounds.size.height * 0.25)
+        .clipShape(RoundedRectangle(cornerRadius: 14))
+        .overlay(
+            RoundedRectangle(cornerRadius: 14)
+                .stroke(Color.black, lineWidth: 2)
+        )
+        .padding(.horizontal)
     }
 }
 
@@ -55,7 +123,7 @@ struct GraphCard : View {
                         .font(.title)
                         .fontWeight(.bold)
                     
-                    Text("+0.57")
+                    Text("+0.57 (1.35%)")
                         .font(.subheadline)
                         .fontWeight(.medium)
                         .foregroundStyle(Color.green)
@@ -70,10 +138,10 @@ struct GraphCard : View {
             RoundedRectangle(cornerRadius: 14)
                 .stroke(Color.black, lineWidth: 2)
         )
-        .padding()
+        .padding(.horizontal)
     }
 }
 
-#Preview {
-    GraphCard()
-}
+
+
+
