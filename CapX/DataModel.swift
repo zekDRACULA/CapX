@@ -25,6 +25,7 @@ struct MonthlyPriceModel: Identifiable {
     var id: UUID = UUID()
     var index: String
     var Close: Double
+   // var result : [MonthResult]
     var date: Date{
        let inputFormatter = DateFormatter()
         inputFormatter.dateFormat = "yyyy-MM-dd HH:mm:ssZZZZZ"
@@ -34,10 +35,20 @@ struct MonthlyPriceModel: Identifiable {
     
     var day : String{
         let outputFormatter = DateFormatter()
-        outputFormatter.dateFormat = "MM-dd"
+        outputFormatter.dateFormat = "MM-Dd"
         return outputFormatter.string(from: date)
     }
 }
+
+
+//MARK: Month Result
+struct MonthResult : Identifiable{
+    var id: UUID = UUID()
+    
+}
+
+
+
 
 let monthlyPriceGraphData: [MonthlyPriceModel] = [
     MonthlyPriceModel(index: "2024-09-03 00:00:00-04:00", Close: 409.44),

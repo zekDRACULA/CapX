@@ -32,20 +32,21 @@ struct PriceChart : View {
                     if value.as(String.self) == firstIndex{
                         AxisValueLabel{
                             Text(lastDate)
+                                .foregroundStyle(Color.black)
                                 .frame(width: 100)
                             }
                     }else if value.as(String.self) == lastIndex{
                         AxisValueLabel{
                             Text(currDate)
+                                .foregroundStyle(Color.black)
                                 .frame(width: 100)
                         }
                     }
                 }
             }
         }
-       
         .padding()
-        
+        SegmentedControl()
     }
 }
 
