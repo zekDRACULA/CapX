@@ -15,10 +15,12 @@ struct HomePage: View {
     
     @State var key : String = ""
     var body: some View {
-        SearchBar(key: $key)
-        GraphCard()
-        PriceCard(priceCard: priceCardData[0])
-        Spacer()
+            VStack{
+                SearchBar(key: $key)
+                GraphCard()
+                PriceCard(priceCard: priceCardData[0])
+                Spacer()
+            }
     }
 }
 
@@ -91,7 +93,6 @@ struct PriceCard : View {
         }
         .padding()
         .frame(maxWidth: .infinity, alignment: .topLeading)
-        //.frame(maxHeight: maxHeight: UIScreen.main.bounds.size.height * 0.25)
         .clipShape(RoundedRectangle(cornerRadius: 14))
         .overlay(
             RoundedRectangle(cornerRadius: 14)
@@ -133,7 +134,8 @@ struct GraphCard : View {
             PriceChart()
             Spacer()
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        //.frame(minHeight: UIScreen.main.bounds.height - 50)
         .clipShape(RoundedRectangle(cornerRadius: 14))
         .padding()
         .overlay(

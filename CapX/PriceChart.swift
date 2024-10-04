@@ -11,26 +11,41 @@ struct PriceChart : View {
     var minClose = monthlyPriceGraphData.map{$0.Close}.min() ?? 400
     var maxClose = monthlyPriceGraphData.map{$0.Close}.max() ?? 450
 
+    var lastDate = monthlyPriceGraphData.first?.day ?? ""
+    var currDate = monthlyPriceGraphData.last?.day ?? ""
     
     var body: some View {
         Chart{
             ForEach(monthlyPriceGraphData){ data in
-                LineMark(x: .value("", data.index),
-                         y: .value("", data.Close))
+                let xValue = data.index
+                let yValue = data.Close
+                LineMark(x: .value("", xValue),
+                         y: .value("", yValue))
+                .foregroundStyle(Color.green)
             }
         }
         .chartYScale(domain: (minClose - 10) ... (maxClose + 10))
-        .foregroundStyle(Color.green)
-        .chartXAxis {
-                    AxisMarks { value in
-                        // Extract the day value from AxisValue
-                        if let dayValue = value.as(Double.self) {
-                            // Format day based on the value
-                            let dayString = String(format: "%.0f", dayValue)
-                            AxisValueLabel(dayString)
+        .chartXAxis{
+            if let firstIndex = monthlyPriceGraphData.first?.index,
+               let lastIndex = monthlyPriceGraphData.last?.index{
+                AxisMarks(values: [firstIndex, lastIndex]){ value in
+                    if value.as(String.self) == firstIndex{
+                        AxisValueLabel{
+                            Text(lastDate)
+                                .frame(width: 100)
+                            }
+                    }else if value.as(String.self) == lastIndex{
+                        AxisValueLabel{
+                            Text(currDate)
+                                .frame(width: 100)
                         }
                     }
                 }
+            }
+        }
+       
+        .padding()
+        
     }
 }
 
