@@ -21,11 +21,13 @@ let priceCardData: [PriceCardModel] = [
     PriceCardModel(open: "225.89", dayHigh: "227.37", dayLow: "223.03", fiftyTwoWeekHigh: "237.23", fiftyTwoWeekLow: "164.08")
 ]
 
+//MARK: data model for Monthly data
 struct MonthlyPriceModel: Identifiable {
     var id: UUID = UUID()
     var index: String
     var Close: Double
    // var result : [MonthResult]
+   
     var date: Date{
        let inputFormatter = DateFormatter()
         inputFormatter.dateFormat = "yyyy-MM-dd HH:mm:ssZZZZZ"
@@ -35,11 +37,10 @@ struct MonthlyPriceModel: Identifiable {
     
     var day : String{
         let outputFormatter = DateFormatter()
-        outputFormatter.dateFormat = "MM-Dd"
+        outputFormatter.dateFormat = "MM-dd"
         return outputFormatter.string(from: date)
     }
 }
-
 
 //MARK: Month Result
 struct MonthResult : Identifiable{
