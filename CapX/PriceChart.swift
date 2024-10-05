@@ -45,6 +45,8 @@ struct PriceChart : View {
                 }
             }
         }
+        .frame(maxWidth: .infinity)
+        .frame(height: 350)
         .padding()
         SegmentedControl()
     }

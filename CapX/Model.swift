@@ -8,30 +8,32 @@
 import Foundation
 
 //MARK: Data coming from {{base_url}}/history
-struct MonthlyData : Codable{
-   let records : [records]?
+struct HistoryData : Codable{
+    let records : [records]?
 }
 
 struct records : Codable{
+    let High : String?
+    let Low : String?
     let index : String?
     let Close : String?
     
-    var date: Date?{
-       let inputFormatter = DateFormatter()
-        inputFormatter.dateFormat = "yyyy-MM-dd HH:mm:ssZZZZZ"
-        inputFormatter.locale = Locale(identifier: "en_US_POSIX")
-        return inputFormatter.date(from: index ?? "") ?? Date()
-    }
-    
-    var day : String?{
-        let outputFormatter = DateFormatter()
-            outputFormatter.dateFormat = "MM-dd"
-            return outputFormatter.string(from: date ?? Date())
-    }
+//    var date: Date?{
+//       let inputFormatter = DateFormatter()
+//        inputFormatter.dateFormat = "yyyy-MM-dd HH:mm:ssZZZZZ"
+//        inputFormatter.locale = Locale(identifier: "en_US_POSIX")
+//        return inputFormatter.date(from: index ?? "") ?? Date()
+//    }
+//    
+//    var day : String?{
+//        let outputFormatter = DateFormatter()
+//            outputFormatter.dateFormat = "MM-dd"
+//            return outputFormatter.string(from: date ?? Date())
+//    }
 }
 
 //MARK: Data coming from {{base_url}}/info
-struct BasicData : Codable{
+struct StockInfo : Codable{
     let symbol : String?
     let longName : String?
     let previousClose : String?

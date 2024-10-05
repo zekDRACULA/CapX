@@ -14,13 +14,22 @@ import SwiftUI
 struct HomePage: View {
     
     @State var key : String = ""
+    
     var body: some View {
-            VStack{
-                SearchBar(key: $key)
-                GraphCard()
-                PriceCard(priceCard: priceCardData[0])
-                Spacer()
-            }
+        ScrollView{
+            ZStack{
+                    VStack{
+                        HStack(spacing: 4){
+                            SearchBar(key: $key)
+                            SearchButton(key: $key)
+                                .padding(.trailing)
+                        }
+                        GraphCard()
+                        PriceCard(priceCard: priceCardData[0])
+                        Spacer()
+                    }
+                }
+        }
     }
 }
 
@@ -37,7 +46,31 @@ struct SearchBar : View {
                 RoundedRectangle(cornerRadius: 14)
                     .stroke(Color.black, lineWidth: 2)
             )
-            .padding(.horizontal)
+            .padding(.leading)
+    }
+}
+
+struct SearchButton : View {
+    @Binding var key : String
+    var body: some View {
+        Button {
+            Task{
+                do{
+                    
+                    let responseData : StockInfo = try await getInfo(key: key.capitalized)
+                    print(responseData.longName ?? "see")
+                }catch{
+                    
+                }
+            }
+        } label: {
+            Text("Done")
+                .padding()
+                .foregroundStyle(Color.white)
+                .frame(maxHeight: 50)
+                .background(Color.black)
+                .clipShape(RoundedRectangle(cornerRadius: 14))
+        }
     }
 }
 
@@ -135,7 +168,7 @@ struct GraphCard : View {
             Spacer()
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        //.frame(minHeight: UIScreen.main.bounds.height - 50)
+        .frame(maxHeight: .infinity)
         .clipShape(RoundedRectangle(cornerRadius: 14))
         .padding()
         .overlay(
