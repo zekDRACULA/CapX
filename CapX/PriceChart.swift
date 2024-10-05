@@ -39,14 +39,14 @@ struct PriceChart : View {
                         AxisValueLabel{
                             Text(currDate)
                                 .foregroundStyle(Color.black)
-                                .frame(width: 100)
+                                .frame(width: 200)
                         }
                     }
                 }
             }
         }
         .frame(maxWidth: .infinity)
-        .frame(height: 350)
+        .frame(height: 300)
         .padding()
         SegmentedControl()
     }

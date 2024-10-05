@@ -73,7 +73,7 @@ func getHistory(key: String, duration: String) async throws -> HistoryData{
     request.setValue(apiKey, forHTTPHeaderField: "x-rapidapi-key")
     request.setValue(endPoint, forHTTPHeaderField: "x-rapidapi-host")
     
-    let body = ["stock" : key, "range": duration]
+    let body = ["stock" : key, "period": duration]
     
     request.httpBody = try JSONSerialization.data(withJSONObject: body, options: [])
     
@@ -99,7 +99,7 @@ func getHistory(key: String, duration: String) async throws -> HistoryData{
         let decoder = JSONDecoder()
         return try decoder.decode(HistoryData.self, from: data)
     }catch{
-        print("failed to decode data: \(error.localizedDescription)")
+        print("failed to decode data in history: \(error.localizedDescription)")
         throw URLError(.cannotDecodeContentData)
     }
 }

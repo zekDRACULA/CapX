@@ -37,7 +37,7 @@ struct MonthlyPriceModel: Identifiable {
     
     var day : String{
         let outputFormatter = DateFormatter()
-        outputFormatter.dateFormat = "MM-dd"
+        outputFormatter.dateFormat = "yyyy-MM-dd"
         return outputFormatter.string(from: date)
     }
 }

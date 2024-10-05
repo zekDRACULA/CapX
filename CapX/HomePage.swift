@@ -23,7 +23,7 @@ struct HomePage: View {
                             SearchBar(key: $key)
                             SearchButton(key: $key)
                                 .padding(.trailing)
-                        }
+                        }.padding(.top)
                         GraphCard()
                         PriceCard(priceCard: priceCardData[0])
                         Spacer()
@@ -56,11 +56,9 @@ struct SearchButton : View {
         Button {
             Task{
                 do{
-                    
-                    let responseData : StockInfo = try await getInfo(key: key.capitalized)
-                    print(responseData.longName ?? "see")
+                    try await getHistory(key: key.capitalized, duration: "1mo")
                 }catch{
-                    
+                    print("Error: \(error.localizedDescription)")
                 }
             }
         } label: {
