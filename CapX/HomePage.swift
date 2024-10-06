@@ -58,7 +58,7 @@ struct SearchButton : View {
                 //MARK: getInfo()
                 do{
                      let infoData = try await getInfo(key: key.capitalized)
-                     stockInfoManager.shared.stockInfoData.append(infoData)
+                     stockInfoManager.shared.stockInfoData = infoData
                      print("info data: \(infoData)")
                 }catch{
                     print("Error: \(error.localizedDescription)")
@@ -89,6 +89,8 @@ struct SearchButton : View {
 }
 
 struct PriceCard : View {
+    @ObservedObject var info = stockInfoManager.shared
+    @ObservedObject var history = stockHistoryManager.shared
     var priceCard : PriceCardModel
     var body: some View {
         VStack(alignment: .leading, spacing: 4){
@@ -97,7 +99,7 @@ struct PriceCard : View {
                     .font(.title2)
                     .fontWeight(.semibold)
                 Spacer()
-                Text(priceCard.open)
+                Text("\(info.stockInfoData.open ?? 0)")
                     .font(.title2)
                     .fontWeight(.bold)
             }
@@ -106,7 +108,7 @@ struct PriceCard : View {
                     .font(.title2)
                     .fontWeight(.semibold)
                 Spacer()
-                Text(priceCard.dayHigh)
+                Text("\(info.stockInfoData.dayHigh ?? 0)")
                     .font(.title2)
                     .fontWeight(.bold)
             }
@@ -115,7 +117,7 @@ struct PriceCard : View {
                     .font(.title2)
                     .fontWeight(.semibold)
                 Spacer()
-                Text(priceCard.dayLow)
+                Text("\(info.stockInfoData.dayLow ?? 0)")
                     .font(.title2)
                     .fontWeight(.bold)
             }
@@ -124,7 +126,7 @@ struct PriceCard : View {
                     .font(.title2)
                     .fontWeight(.semibold)
                 Spacer()
-                Text(priceCard.fiftyTwoWeekHigh)
+                Text("\(info.stockInfoData.fiftyTwoWeekHigh ?? 0)")
                     .font(.title2)
                     .fontWeight(.bold)
             }
@@ -133,7 +135,7 @@ struct PriceCard : View {
                     .font(.title2)
                     .fontWeight(.semibold)
                 Spacer()
-                Text(priceCard.fiftyTwoWeekLow)
+                Text("\(info.stockInfoData.fiftyTwoWeekLow ?? 0)")
                     .font(.title2)
                     .fontWeight(.bold)
             }
@@ -150,17 +152,17 @@ struct PriceCard : View {
 }
 
 struct GraphCard : View {
-    
+    @ObservedObject var view = stockInfoManager.shared
     var body: some View {
         VStack(alignment: .leading ,spacing: 2){
             HStack(alignment: .top){
                 //Stock Name
                 VStack(alignment: .leading, spacing: 2){
-                    Text("AAPL")
+                    Text("\(view.stockInfoData.symbol ?? "N/A")")
                         .font(.title)
                         .fontWeight(.bold)
                     
-                    Text("Apple Inc.")
+                    Text("\(view.stockInfoData.longName ?? "")")
                         .font(.subheadline)
                         .fontWeight(.medium)
                 }

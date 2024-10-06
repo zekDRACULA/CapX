@@ -7,6 +7,8 @@
 
 import Foundation
 
+//MARK: getInfo Method
+
 func getInfo(key : String) async throws -> StockInfo{
     
     let apiKey : String = "48fe470d4cmsh65b83cc32be84eep1634a2jsn0c8aa1ba5842"
@@ -41,12 +43,12 @@ func getInfo(key : String) async throws -> StockInfo{
         throw URLError(.badServerResponse)
     }
     
-    if let jsonData = String(data: data, encoding: .utf8){
-       // print("jsonData: \(jsonData)")
-        print("Sucess")
-    }else{
-        print("failed to Convert json Data")
-    }
+//    if let jsonData = String(data: data, encoding: .utf8){
+//       // print("jsonData: \(jsonData)")
+//        print("Sucess")
+//    }else{
+//        print("failed to Convert json Data")
+//    }
     
     do{
         let decoder = JSONDecoder()
@@ -57,6 +59,8 @@ func getInfo(key : String) async throws -> StockInfo{
     }
 }
 
+
+//MARK: getHistory Method
 func getHistory(key: String, duration: String) async throws -> HistoryData{
     let apiKey : String = "09d4cc6643msh2b9aeddfdda704bp1928f3jsn3b6536c61a0c"
     let endPoint : String = "yahoo-finance160.p.rapidapi.com"
@@ -89,11 +93,11 @@ func getHistory(key: String, duration: String) async throws -> HistoryData{
         throw URLError(.badServerResponse)
     }
     
-    if let jsonData = String(data: data, encoding: .utf8){
-        print("jsonData: sucess")
-    }else{
-        print("failed to convert json Data")
-    }
+//    if let jsonData = String(data: data, encoding: .utf8){
+//        print("jsonData: sucess")
+//    }else{
+//        print("failed to convert json Data")
+//    }
     
     do{
         let decoder = JSONDecoder()
