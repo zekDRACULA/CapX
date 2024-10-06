@@ -55,8 +55,17 @@ struct StockInfo : Codable{
 class stockInfoManager : ObservableObject{
     static let shared = stockInfoManager()
     @Published var stockInfoData : [StockInfo] = []
-    private init() {}
+    //private init() {}
     func resetData(){
         stockInfoData = []
+    }
+}
+
+
+class stockHistoryManager : ObservableObject{
+    static let shared = stockHistoryManager()
+    @Published var stockHistoryData : [records] = []
+    func resetData(){
+        stockHistoryData = []
     }
 }

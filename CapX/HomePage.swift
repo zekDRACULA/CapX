@@ -55,8 +55,23 @@ struct SearchButton : View {
     var body: some View {
         Button {
             Task{
+                //MARK: getInfo()
                 do{
-                    try await getHistory(key: key.capitalized, duration: "1mo")
+                     let infoData = try await getInfo(key: key.capitalized)
+                    stockInfoManager.shared.stockInfoData.append(infoData)
+                }catch{
+                    
+                }
+                
+                //MARK: getHistory()
+                do{
+                    let historyArray = try await getHistory(key: key.capitalized, duration: "1mo")
+                    if let records = historyArray.records{
+                        stockHistoryManager.shared.stockHistoryData.append(contentsOf: records)
+                        print(stockHistoryManager.shared.stockHistoryData.count)
+                    }else{
+                        print("No records found in the fetched history data")
+                    }
                 }catch{
                     print("Error: \(error.localizedDescription)")
                 }
@@ -176,7 +191,3 @@ struct GraphCard : View {
         .padding(.horizontal)
     }
 }
-
-
-
-
