@@ -8,6 +8,7 @@ import SwiftUI
 import Charts
 
 struct PriceChart : View {
+    
     var minClose = monthlyPriceGraphData.map{$0.Close}.min() ?? 400
     var maxClose = monthlyPriceGraphData.map{$0.Close}.max() ?? 450
 
@@ -22,6 +23,7 @@ struct PriceChart : View {
                 LineMark(x: .value("", xValue),
                          y: .value("", yValue))
                 .foregroundStyle(Color.green)
+                .shadow(color: Color.green, radius: 10, x: 10, y: 10)
             }
         }
         .chartYScale(domain: (minClose - 10) ... (maxClose + 10))
@@ -32,12 +34,14 @@ struct PriceChart : View {
                     if value.as(String.self) == firstIndex{
                         AxisValueLabel{
                             Text(lastDate)
+                                .padding(.leading)
                                 .foregroundStyle(Color.black)
-                                .frame(width: 100)
+                                .frame(width: 250)
                             }
                     }else if value.as(String.self) == lastIndex{
                         AxisValueLabel{
                             Text(currDate)
+                                .padding(.horizontal)
                                 .foregroundStyle(Color.black)
                                 .frame(width: 200)
                         }
@@ -47,7 +51,7 @@ struct PriceChart : View {
         }
         .frame(maxWidth: .infinity)
         .frame(height: 300)
-        .padding()
+        //.padding()
         SegmentedControl()
     }
 }

@@ -37,7 +37,6 @@ struct HomePage: View {
 
 //MARK: Not Found
 struct notFound : View {
-    //@Binding var key : String
     var body: some View {
         Text("Search Stock")
             .font(.title2)
