@@ -58,9 +58,10 @@ struct SearchButton : View {
                 //MARK: getInfo()
                 do{
                      let infoData = try await getInfo(key: key.capitalized)
-                    stockInfoManager.shared.stockInfoData.append(infoData)
+                     stockInfoManager.shared.stockInfoData.append(infoData)
+                     print("info data: \(infoData)")
                 }catch{
-                    
+                    print("Error: \(error.localizedDescription)")
                 }
                 
                 //MARK: getHistory()

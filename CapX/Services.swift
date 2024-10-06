@@ -42,7 +42,7 @@ func getInfo(key : String) async throws -> StockInfo{
     }
     
     if let jsonData = String(data: data, encoding: .utf8){
-        //print("jsonData: \(jsonData)")
+       // print("jsonData: \(jsonData)")
         print("Sucess")
     }else{
         print("failed to Convert json Data")
@@ -52,7 +52,7 @@ func getInfo(key : String) async throws -> StockInfo{
         let decoder = JSONDecoder()
         return try decoder.decode(StockInfo.self, from: data)
     }catch{
-        print("failed to decode data: \(error.localizedDescription)")
+        print("failed to decode data getInfo : \(error.localizedDescription)")
         throw URLError(.cannotDecodeContentData)
     }
 }

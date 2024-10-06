@@ -39,19 +39,29 @@ struct records : Codable{
     }
 }
 
-//MARK: Data coming from {{base_url}}/info
-struct StockInfo : Codable{
-    let symbol : String?
-    let longName : String?
-    let previousClose : String?
-    let currentPrice : String?
-    let open : String?
-    let dayLow : String?
-    let dayHigh : String?
-    let fiftyTwoWeekHigh : String?
-    let fiftyTwoWeekLow : String?
+//MARK: manager for stock history
+class stockHistoryManager : ObservableObject{
+    static let shared = stockHistoryManager()
+    @Published var stockHistoryData : [records] = []
+    func resetData(){
+        stockHistoryData = []
+    }
 }
 
+//MARK: Data coming from {{base_url}}/info
+struct StockInfo : Codable{
+    let previousClose : Double?
+    let open : Double?
+    let dayLow : Double?
+    let dayHigh : Double?
+    let fiftyTwoWeekLow : Double?
+    let fiftyTwoWeekHigh : Double?
+    let symbol : String?
+    let longName : String?
+    let currentPrice : Double?
+}
+
+//MARK: manager for stock Info
 class stockInfoManager : ObservableObject{
     static let shared = stockInfoManager()
     @Published var stockInfoData : [StockInfo] = []
@@ -61,11 +71,3 @@ class stockInfoManager : ObservableObject{
     }
 }
 
-
-class stockHistoryManager : ObservableObject{
-    static let shared = stockHistoryManager()
-    @Published var stockHistoryData : [records] = []
-    func resetData(){
-        stockHistoryData = []
-    }
-}
