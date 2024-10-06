@@ -76,8 +76,5 @@ class stockInfoManager : ObservableObject{
                                   longName: "",
                                   currentPrice: 0.0)
     }
-//    func resetData(){
-//        stockInfoData()
-//    }
 }
 

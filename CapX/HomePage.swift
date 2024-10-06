@@ -5,6 +5,7 @@
 //  Created by Abhay singh on 03/10/24.
 //
 
+
 import SwiftUI
 
 #Preview {
@@ -12,42 +13,62 @@ import SwiftUI
 }
 
 struct HomePage: View {
-    
     @State var key : String = ""
-    
+    @ObservedObject var history = stockHistoryManager.shared
     var body: some View {
         ScrollView{
             ZStack{
-                    VStack{
-                        HStack(spacing: 4){
-                            SearchBar(key: $key)
-                            SearchButton(key: $key)
-                                .padding(.trailing)
-                        }.padding(.top)
-                        GraphCard()
-                        PriceCard(priceCard: priceCardData[0])
-                        Spacer()
+                VStack{
+                    SearchBar(key: $key)
+                    if (history.stockHistoryData.isEmpty){
+                        notFound()
+                    }else{
+                        VStack{
+                            GraphCard()
+                            PriceCard(priceCard: priceCardData[0])
+                            Spacer()
+                        }
                     }
                 }
+            }
         }
+    }
+}
+
+//MARK: Not Found
+struct notFound : View {
+    //@Binding var key : String
+    var body: some View {
+        Text("Search Stock")
+            .font(.title2)
+            .fontWeight(.medium)
+            .frame(maxWidth: .infinity)
+            .frame(height: 250)
+            .background(Color.white)
+            .clipShape(RoundedRectangle(cornerRadius: 14))
+            .padding()
+            .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: 2)
+            .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
     }
 }
 
 struct SearchBar : View {
     @Binding var key : String
     var body: some View {
-        TextField("AAPL, MSFT Search", text: $key)
-            .frame(maxWidth: .infinity)
-            .frame(height: 50)
-            //.background(Color.blue)
-            .clipShape(RoundedRectangle(cornerRadius: 14))
-            .padding(.horizontal)
-            .overlay(
-                RoundedRectangle(cornerRadius: 14)
-                    .stroke(Color.black, lineWidth: 2)
-            )
-            .padding(.leading)
-    }
+        HStack{
+            TextField("AAPL, MSFT Search", text: $key)
+                .frame(maxWidth: .infinity)
+                .frame(height: 50)
+                .padding(.leading)
+                .background(Color.white)
+                .clipShape(RoundedRectangle(cornerRadius: 14))
+                .padding(.leading)
+                .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: 2)
+                .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
+            SearchButton(key: $key)
+                .padding(.trailing)
+        }
+        }
 }
 
 struct SearchButton : View {
@@ -84,6 +105,8 @@ struct SearchButton : View {
                 .frame(maxHeight: 50)
                 .background(Color.black)
                 .clipShape(RoundedRectangle(cornerRadius: 14))
+                .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: 2)
+                .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
         }
     }
 }
@@ -142,12 +165,11 @@ struct PriceCard : View {
         }
         .padding()
         .frame(maxWidth: .infinity, alignment: .topLeading)
+        .background(Color.white)
         .clipShape(RoundedRectangle(cornerRadius: 14))
-        .overlay(
-            RoundedRectangle(cornerRadius: 14)
-                .stroke(Color.black, lineWidth: 2)
-        )
         .padding(.horizontal)
+        .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: 2)
+        .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
     }
 }
 
@@ -180,17 +202,16 @@ struct GraphCard : View {
                         .foregroundStyle(Color.green)
                 }
             }
+            Spacer()
             PriceChart()
             Spacer()
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .frame(maxHeight: .infinity)
-        .clipShape(RoundedRectangle(cornerRadius: 14))
         .padding()
-        .overlay(
-            RoundedRectangle(cornerRadius: 14)
-                .stroke(Color.black, lineWidth: 2)
-        )
+        .frame(maxWidth: .infinity, alignment: .topLeading)
+        .background(Color.white)
+        .clipShape(RoundedRectangle(cornerRadius: 14))
         .padding(.horizontal)
+        .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: 2)
+        .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
     }
 }
