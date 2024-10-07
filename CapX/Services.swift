@@ -43,13 +43,6 @@ func getInfo(key : String) async throws -> StockInfo{
         throw URLError(.badServerResponse)
     }
     
-//    if let jsonData = String(data: data, encoding: .utf8){
-//       // print("jsonData: \(jsonData)")
-//        print("Sucess")
-//    }else{
-//        print("failed to Convert json Data")
-//    }
-    
     do{
         let decoder = JSONDecoder()
         return try decoder.decode(StockInfo.self, from: data)

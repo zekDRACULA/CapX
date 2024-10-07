@@ -24,7 +24,7 @@ struct HomePage: View {
 //                        notFound()
 //                    }else{
                         VStack{
-                            GraphCard()
+                            GraphCard(key: $key)
                             PriceCard(priceCard: priceCardData[0])
                             Spacer()
                         }
@@ -183,7 +183,7 @@ class DataManager : ObservableObject{
         history.stockHistoryData.first?.closeDouble ?? 0
     }
     var currOpen : Double{
-        history.stockHistoryData.last?.openDouble ?? 0
+        history.stockHistoryData.last?.openDouble ?? 20
     }
     var currOpenString : String{
         String(format: "%.2f", currOpen)
@@ -223,7 +223,7 @@ class DataManager : ObservableObject{
 struct GraphCard : View {
  
     @ObservedObject var stock = DataManager.shared
-    
+    @Binding var key : String
     var body: some View {
         VStack(alignment: .leading ,spacing: 2){
             HStack(alignment: .top){
@@ -234,7 +234,6 @@ struct GraphCard : View {
                         .fontWeight(.bold)
                     
                     Text("\(stock.view.stockInfoData.longName ?? "")")
-//                    Text("\(view.stockInfoData.longName ?? "")")
                         .font(.subheadline)
                         .fontWeight(.medium)
                 }
@@ -242,8 +241,7 @@ struct GraphCard : View {
                 Spacer()
                 //Stock Price
                 VStack(alignment: .center, spacing: 1){
-                    HStack(spacing: 2){
-    //                    Text(currOpenString)
+                   // HStack(spacing: 2){
                         Text(stock.currOpenString)
                             .font(.title)
                             .fontWeight(.bold)
@@ -253,7 +251,7 @@ struct GraphCard : View {
                             .font(.subheadline)
                             .fontWeight(.medium)
                             .foregroundStyle(stock.isPositive ? Color.green : Color.red)
-                    }
+                    //}
                     
                     Text("This Month")
                         .font(.footnote)
@@ -262,7 +260,7 @@ struct GraphCard : View {
                 }
             }
             Spacer()
-            PriceChart()
+            PriceChart(key: key)
             Spacer()
         }
         .padding()
