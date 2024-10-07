@@ -20,15 +20,15 @@ struct HomePage: View {
             ZStack{
                 VStack{
                     SearchBar(key: $key)
-                    if (history.stockHistoryData.isEmpty){
-                        notFound()
-                    }else{
+//                    if (history.stockHistoryData.isEmpty){
+//                        notFound()
+//                    }else{
                         VStack{
                             GraphCard()
                             PriceCard(priceCard: priceCardData[0])
                             Spacer()
                         }
-                    }
+                    //}
                 }
             }
         }
@@ -172,33 +172,76 @@ struct PriceCard : View {
     }
 }
 
-struct GraphCard : View {
+class GraphCardManager : ObservableObject{
+    static let shared = GraphCardManager()
+    
     @ObservedObject var view = stockInfoManager.shared
+    @ObservedObject var history = stockHistoryManager.shared
+    
+    var previousClose : Double{
+        history.stockHistoryData.first?.closeDouble ?? 0
+    }
+    var currOpen : Double{
+        history.stockHistoryData.last?.openDouble ?? 0
+    }
+    var currOpenString : String{
+        String(format: "%.2f", currOpen)
+    }
+    
+    var priceChange : Double{
+        currOpen - previousClose
+    }
+    
+    var priceChangeString : String{
+        String(format: "%.2f", priceChange)
+    }
+    
+    var isPositive : Bool{
+        (currOpen - previousClose) >= 0 ? true : false
+    }
+}
+
+
+
+struct GraphCard : View {
+ 
+    @ObservedObject var stock = GraphCardManager.shared
+    
     var body: some View {
         VStack(alignment: .leading ,spacing: 2){
             HStack(alignment: .top){
                 //Stock Name
                 VStack(alignment: .leading, spacing: 2){
-                    Text("\(view.stockInfoData.symbol ?? "N/A")")
+                    Text("\(stock.view.stockInfoData.symbol ?? "N/A")")
                         .font(.title)
                         .fontWeight(.bold)
                     
-                    Text("\(view.stockInfoData.longName ?? "")")
+                    Text("\(stock.view.stockInfoData.longName ?? "")")
+//                    Text("\(view.stockInfoData.longName ?? "")")
                         .font(.subheadline)
                         .fontWeight(.medium)
                 }
                 
                 Spacer()
                 //Stock Price
-                VStack(alignment: .leading, spacing: 2){
-                    Text("226.78")
-                        .font(.title)
-                        .fontWeight(.bold)
+                VStack(alignment: .center, spacing: 1){
+                    HStack(spacing: 2){
+    //                    Text(currOpenString)
+                        Text(stock.currOpenString)
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .padding(.horizontal)
+                        
+                        Text("\(stock.isPositive ? "+" : "-") " + stock.priceChangeString)
+                            .font(.subheadline)
+                            .fontWeight(.medium)
+                            .foregroundStyle(stock.isPositive ? Color.green : Color.red)
+                    }
                     
-                    Text("+0.57 (1.35%)")
-                        .font(.subheadline)
+                    Text("This Month")
+                        .font(.footnote)
                         .fontWeight(.medium)
-                        .foregroundStyle(Color.green)
+                        .foregroundStyle(Color.gray)
                 }
             }
             Spacer()

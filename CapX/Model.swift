@@ -12,7 +12,7 @@ struct HistoryData : Codable{
     let records : [records]?
 }
 
-struct records : Codable{
+struct records : Codable, Identifiable{
     let index : String?
     let Open : String?
     let High : String?
@@ -20,7 +20,21 @@ struct records : Codable{
     let Close : String?
     let range : String?
     
-    var date: Date?{
+    var id : UUID{
+        return UUID()
+    }
+    
+    var openDouble : Double?{
+        let open = Double(Open ?? "0")
+        return open
+    }
+    
+    var closeDouble : Double?{
+        let close = Double(Close ?? "0")
+        return close
+    }
+    
+    var date : Date?{
        let inputFormatter = DateFormatter()
         inputFormatter.dateFormat = "yyyy-MM-dd HH:mm:ssZZZZZ"
         inputFormatter.locale = Locale(identifier: "en_US_POSIX")

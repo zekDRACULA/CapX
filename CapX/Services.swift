@@ -11,7 +11,7 @@ import Foundation
 
 func getInfo(key : String) async throws -> StockInfo{
     
-    let apiKey : String = "48fe470d4cmsh65b83cc32be84eep1634a2jsn0c8aa1ba5842"
+    let apiKey : String = "ee4c574a1dmshdbf1936da940c93p16cdd6jsndf511b9b9f88"
     let endpoint : String = "yahoo-finance160.p.rapidapi.com"
     
     guard let url = URL(string: "https://yahoo-finance160.p.rapidapi.com/info")else{
@@ -65,6 +65,8 @@ func getHistory(key: String, duration: String) async throws -> HistoryData{
     let apiKey : String = "09d4cc6643msh2b9aeddfdda704bp1928f3jsn3b6536c61a0c"
     let endPoint : String = "yahoo-finance160.p.rapidapi.com"
     
+    
+    
     guard let url = URL(string: "https://yahoo-finance160.p.rapidapi.com/history") else{
         print("Invalid Url")
         throw URLError(.badURL)
@@ -92,13 +94,6 @@ func getHistory(key: String, duration: String) async throws -> HistoryData{
         print("Invalid status code: \(httpResponse.statusCode)")
         throw URLError(.badServerResponse)
     }
-    
-//    if let jsonData = String(data: data, encoding: .utf8){
-//        print("jsonData: sucess")
-//    }else{
-//        print("failed to convert json Data")
-//    }
-    
     do{
         let decoder = JSONDecoder()
         return try decoder.decode(HistoryData.self, from: data)
