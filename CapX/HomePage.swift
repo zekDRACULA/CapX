@@ -111,6 +111,7 @@ struct SearchButton : View {
 }
 
 struct PriceCard : View {
+    @ObservedObject var stock = DataManager.shared
     @ObservedObject var info = stockInfoManager.shared
     @ObservedObject var history = stockHistoryManager.shared
     var priceCard : PriceCardModel
@@ -121,7 +122,7 @@ struct PriceCard : View {
                     .font(.title2)
                     .fontWeight(.semibold)
                 Spacer()
-                Text("\(info.stockInfoData.open ?? 0)")
+                Text(stock.currOpenString)
                     .font(.title2)
                     .fontWeight(.bold)
             }
@@ -130,7 +131,7 @@ struct PriceCard : View {
                     .font(.title2)
                     .fontWeight(.semibold)
                 Spacer()
-                Text("\(info.stockInfoData.dayHigh ?? 0)")
+                Text(stock.highString)
                     .font(.title2)
                     .fontWeight(.bold)
             }
@@ -139,7 +140,7 @@ struct PriceCard : View {
                     .font(.title2)
                     .fontWeight(.semibold)
                 Spacer()
-                Text("\(info.stockInfoData.dayLow ?? 0)")
+                Text(stock.lowString)
                     .font(.title2)
                     .fontWeight(.bold)
             }
@@ -148,7 +149,7 @@ struct PriceCard : View {
                     .font(.title2)
                     .fontWeight(.semibold)
                 Spacer()
-                Text("\(info.stockInfoData.fiftyTwoWeekHigh ?? 0)")
+                Text(stock.fiftyTwoWeekHighString)
                     .font(.title2)
                     .fontWeight(.bold)
             }
@@ -157,7 +158,7 @@ struct PriceCard : View {
                     .font(.title2)
                     .fontWeight(.semibold)
                 Spacer()
-                Text("\(info.stockInfoData.fiftyTwoWeekLow ?? 0)")
+                Text(stock.fiftyTwoWeekLowString)
                     .font(.title2)
                     .fontWeight(.bold)
             }
@@ -172,8 +173,8 @@ struct PriceCard : View {
     }
 }
 
-class GraphCardManager : ObservableObject{
-    static let shared = GraphCardManager()
+class DataManager : ObservableObject{
+    static let shared = DataManager()
     
     @ObservedObject var view = stockInfoManager.shared
     @ObservedObject var history = stockHistoryManager.shared
@@ -199,13 +200,29 @@ class GraphCardManager : ObservableObject{
     var isPositive : Bool{
         (currOpen - previousClose) >= 0 ? true : false
     }
+    
+    var highString : String{
+        String(format: "%.2f", view.stockInfoData.dayHigh ?? 0)
+    }
+    
+    var lowString : String{
+        String(format: "%.2f", view.stockInfoData.dayLow ?? 0)
+    }
+    
+    var fiftyTwoWeekHighString : String{
+        String(format: "%.2f", view.stockInfoData.fiftyTwoWeekHigh ?? 0)
+    }
+    
+    var fiftyTwoWeekLowString : String{
+        String(format: "%.2f", view.stockInfoData.fiftyTwoWeekLow ?? 0)
+    }
 }
 
 
 
 struct GraphCard : View {
  
-    @ObservedObject var stock = GraphCardManager.shared
+    @ObservedObject var stock = DataManager.shared
     
     var body: some View {
         VStack(alignment: .leading ,spacing: 2){
