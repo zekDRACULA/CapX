@@ -11,7 +11,8 @@ import Foundation
 
 func getInfo(key : String) async throws -> StockInfo{
     
-    let apiKey : String = "973088a045mshe7b103daf73d07bp1681ddjsn1df10311601f"
+//    let apiKey : String = "973088a045mshe7b103daf73d07bp1681ddjsn1df10311601f"
+    let apiKey : String = ""
     let endpoint : String = "yahoo-finance160.p.rapidapi.com"
     
     guard let url = URL(string: "https://yahoo-finance160.p.rapidapi.com/info")else{

@@ -20,15 +20,15 @@ struct HomePage: View {
             ZStack{
                 VStack{
                     SearchBar(key: $key)
-//                    if (history.stockHistoryData.isEmpty){
-//                        notFound()
-//                    }else{
+                    if (history.stockHistoryData.isEmpty){
+                        notFound()
+                    }else{
                         VStack{
                             GraphCard(key: $key)
                             PriceCard(priceCard: priceCardData[0])
                             Spacer()
                         }
-                    //}
+                    }
                 }
             }
         }
@@ -183,6 +183,7 @@ class DataManager : ObservableObject{
     @ObservedObject var history = stockHistoryManager.shared
     
     @Published var previousClose: Double = 0.0
+    @Published var changePeriod : String = "This Month"
     
     func resetPrev(){
         previousClose = 0
@@ -196,9 +197,6 @@ class DataManager : ObservableObject{
         String(format: "%.2f", currPrice)
     }
     
-//    var previousClose : Double{
-//        history.stockHistoryData.first?.closeDouble ?? 0
-//    }
     
     var currOpen : Double{
         history.stockHistoryData.last?.openDouble ?? 0
@@ -260,7 +258,6 @@ struct GraphCard : View {
                 Spacer()
                 //Stock Price
                 VStack(alignment: .center, spacing: 1){
-                   // HStack(spacing: 2){
                         Text(stock.currentPriceString)
                             .font(.title)
                             .fontWeight(.bold)
@@ -270,9 +267,8 @@ struct GraphCard : View {
                             .font(.subheadline)
                             .fontWeight(.medium)
                             .foregroundStyle(stock.isPositive ? Color.green : Color.red)
-                    //}
                     
-                    Text("This Month")
+                    Text("\(stock.changePeriod)")
                         .font(.footnote)
                         .fontWeight(.medium)
                         .foregroundStyle(Color.gray)

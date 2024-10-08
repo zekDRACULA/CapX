@@ -23,11 +23,24 @@ struct SegmentedControl: View {
         .padding()
         .onChange(of: selectedInterval) {
             switch selectedInterval{
-            case 0: duration = "1mo"
-            case 1: duration = "6mo"
-            case 2: duration = "1y"
-            case 3: duration = "5y"
-            default: duration = "1mo"
+            case 0:
+                duration = "1mo"
+                stock.changePeriod = "This Month"
+            
+            case 1:
+                duration = "6mo"
+                stock.changePeriod = "Past 6 Months"
+            
+            case 2: 
+                duration = "1y"
+                stock.changePeriod = "Past 1 year"
+                
+            case 3: 
+                duration = "5y"
+                stock.changePeriod = "Past 5 years"
+            default:
+                duration = "1mo"
+                stock.changePeriod = "This Month"
             }
             
             Task{
