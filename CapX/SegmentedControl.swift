@@ -31,17 +31,27 @@ struct SegmentedControl: View {
             }
             
             Task{
+                //MARK: getInfo()
+                do{
+                     let infoData = try await getInfo(key: key.capitalized)
+                     stock.view.stockInfoData = infoData
+                     print("info data: \(infoData)")
+                }catch{
+                    print("Error: \(error.localizedDescription)")
+                }
+                
+                //MARK: getHistory()
                 do{
                     DataManager.shared.history.resetData()
                     let historyData = try await getHistory(key: key, duration: duration)
                     if let records = historyData.records{
                         DataManager.shared.history.stockHistoryData.append(contentsOf: records)
-                        print("fetched Sucessfully in segmented Control")
+                        print("fetched Sucessfully in segmented Control:\(records)")
                     }else{
                         print("No recoeds found during segmented control change")
                     }
                 }catch{
-                    print("Error fetching history Data: \(error)")
+                    print("Error fetching history Data: \(error.localizedDescription)")
                 }
             }
         }

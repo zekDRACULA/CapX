@@ -85,11 +85,11 @@ struct SearchButton : View {
                 }
                 
                 //MARK: getHistory()
-                do{
+                do {
                     let historyArray = try await getHistory(key: key.capitalized, duration: "1mo")
                     if let records = historyArray.records{
                         stockHistoryManager.shared.stockHistoryData.append(contentsOf: records)
-                        print(stockHistoryManager.shared.stockHistoryData.count)
+                        print("data for records from search button: \(records)")
                     }else{
                         print("No records found in the fetched history data")
                     }
@@ -179,18 +179,29 @@ class DataManager : ObservableObject{
     @ObservedObject var view = stockInfoManager.shared
     @ObservedObject var history = stockHistoryManager.shared
     
+   
+    var currPrice : Double{
+        view.stockInfoData.currentPrice ?? 0
+    }
+    
+    var currentPriceString : String{
+        String(format: "%.2f", currPrice)
+    }
+    
     var previousClose : Double{
         history.stockHistoryData.first?.closeDouble ?? 0
     }
+    
     var currOpen : Double{
-        history.stockHistoryData.last?.openDouble ?? 20
+        history.stockHistoryData.last?.openDouble ?? 0
     }
+    
     var currOpenString : String{
         String(format: "%.2f", currOpen)
     }
     
     var priceChange : Double{
-        currOpen - previousClose
+        currPrice - previousClose
     }
     
     var priceChangeString : String{
@@ -198,7 +209,7 @@ class DataManager : ObservableObject{
     }
     
     var isPositive : Bool{
-        (currOpen - previousClose) >= 0 ? true : false
+        (currPrice - previousClose) >= 0 ? true : false
     }
     
     var highString : String{
@@ -242,12 +253,12 @@ struct GraphCard : View {
                 //Stock Price
                 VStack(alignment: .center, spacing: 1){
                    // HStack(spacing: 2){
-                        Text(stock.currOpenString)
+                        Text(stock.currentPriceString)
                             .font(.title)
                             .fontWeight(.bold)
                             .padding(.horizontal)
                         
-                        Text("\(stock.isPositive ? "+" : "-") " + stock.priceChangeString)
+                        Text("\(stock.isPositive ? "+" : "-")" + stock.priceChangeString)
                             .font(.subheadline)
                             .fontWeight(.medium)
                             .foregroundStyle(stock.isPositive ? Color.green : Color.red)
