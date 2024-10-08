@@ -42,10 +42,12 @@ struct SegmentedControl: View {
                 
                 //MARK: getHistory()
                 do{
+                    DataManager.shared.resetPrev()
                     DataManager.shared.history.resetData()
                     let historyData = try await getHistory(key: key, duration: duration)
-                    if let records = historyData.records{
+                    if let records = historyData.records, let firstRecord = records.first{
                         DataManager.shared.history.stockHistoryData.append(contentsOf: records)
+                        DataManager.shared.previousClose = firstRecord.closeDouble ?? 0
                         print("fetched Sucessfully in segmented Control:\(records)")
                     }else{
                         print("No recoeds found during segmented control change")

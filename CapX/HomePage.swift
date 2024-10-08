@@ -86,10 +86,13 @@ struct SearchButton : View {
                 
                 //MARK: getHistory()
                 do {
+                    DataManager.shared.resetPrev()
+                    DataManager.shared.history.resetData()
                     let historyArray = try await getHistory(key: key.capitalized, duration: "1mo")
-                    if let records = historyArray.records{
+                    if let records = historyArray.records, let firstRecord = records.first{
                         stockHistoryManager.shared.stockHistoryData.append(contentsOf: records)
-                        print("data for records from search button: \(records)")
+                        DataManager.shared.previousClose = firstRecord.closeDouble ?? 0
+                        print("data for records from search button: \(records.count)")
                     }else{
                         print("No records found in the fetched history data")
                     }
@@ -179,7 +182,12 @@ class DataManager : ObservableObject{
     @ObservedObject var view = stockInfoManager.shared
     @ObservedObject var history = stockHistoryManager.shared
     
-   
+    @Published var previousClose: Double = 0.0
+    
+    func resetPrev(){
+        previousClose = 0
+    }
+    
     var currPrice : Double{
         view.stockInfoData.currentPrice ?? 0
     }
@@ -188,9 +196,9 @@ class DataManager : ObservableObject{
         String(format: "%.2f", currPrice)
     }
     
-    var previousClose : Double{
-        history.stockHistoryData.first?.closeDouble ?? 0
-    }
+//    var previousClose : Double{
+//        history.stockHistoryData.first?.closeDouble ?? 0
+//    }
     
     var currOpen : Double{
         history.stockHistoryData.last?.openDouble ?? 0
