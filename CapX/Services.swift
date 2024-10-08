@@ -11,7 +11,7 @@ import Foundation
 
 func getInfo(key : String) async throws -> StockInfo{
     
-    let apiKey : String = "ee4c574a1dmshdbf1936da940c93p16cdd6jsndf511b9b9f88"
+    let apiKey : String = "973088a045mshe7b103daf73d07bp1681ddjsn1df10311601f"
     let endpoint : String = "yahoo-finance160.p.rapidapi.com"
     
     guard let url = URL(string: "https://yahoo-finance160.p.rapidapi.com/info")else{
@@ -55,7 +55,7 @@ func getInfo(key : String) async throws -> StockInfo{
 
 //MARK: getHistory Method
 func getHistory(key: String, duration: String) async throws -> HistoryData{
-    let apiKey : String = "09d4cc6643msh2b9aeddfdda704bp1928f3jsn3b6536c61a0c"
+    let apiKey : String = "973088a045mshe7b103daf73d07bp1681ddjsn1df10311601f"
     let endPoint : String = "yahoo-finance160.p.rapidapi.com"
     
     
