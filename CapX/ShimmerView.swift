@@ -22,7 +22,7 @@ struct Shimmer: ViewModifier {
         content
             .mask {
                 LinearGradient(
-                    gradient: .init(colors: [.white.opacity(0.4), .white, .white.opacity(0.4)]),
+                    gradient: .init(colors: [Color("bgColor").opacity(0.4), Color("bgColor"), Color("bgColor").opacity(0.4)]),
                     startPoint: (isInitialState ? .init(x: -0.3, y: -0.3) : .init(x: 1.0, y: 1.0)),
                     endPoint: (isInitialState ? .init(x: 0, y: 0) : .init(x: 1.3, y: 1.3)))
             }
@@ -31,7 +31,6 @@ struct Shimmer: ViewModifier {
                 isInitialState = false
             }
     }
-    
 }
 
 #Preview {

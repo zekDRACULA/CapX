@@ -19,7 +19,7 @@ struct HomePage: View {
     var body: some View {
         ScrollView{
             ZStack{
-                VStack{
+                VStack(spacing: 12){
                     SearchBar(key: $key)
                     if (data.isLoading){
                         VStack{
@@ -30,11 +30,10 @@ struct HomePage: View {
                         .redacted(reason: .placeholder)
                         .modifier(Shimmer())
                     }
-//                    || data.history.stockHistoryData.isEmpty
                     else if (key == "" || data.history.stockHistoryData.isEmpty){
                         notFound()
                     }else{
-                        VStack{
+                    VStack(spacing: 12){
                             GraphCard(key: $key)
                             PriceCard(priceCard: priceCardData[0])
                             Spacer()
@@ -67,11 +66,11 @@ struct notFound : View {
             .fontWeight(.medium)
             .frame(maxWidth: .infinity)
             .frame(height: 250)
-            .background(Color.white)
+            .background(Color("bgColor"))
             .clipShape(RoundedRectangle(cornerRadius: 14))
             .padding()
-            .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: 2)
-            .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
+            .shadow(color: Color("shadowColor").opacity(0.2), radius: 4, x: 0, y: 2)
+            .shadow(color: Color("shadowColor").opacity(0.1), radius: 10, x: 0, y: 5)
     }
 }
 
@@ -83,11 +82,11 @@ struct SearchBar : View {
                 .frame(maxWidth: .infinity)
                 .frame(height: 50)
                 .padding(.leading)
-                .background(Color.white)
+                .background(Color("bgColor"))
                 .clipShape(RoundedRectangle(cornerRadius: 14))
                 .padding(.leading)
-                .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: 2)
-                .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
+                .shadow(color: Color("shadowColor").opacity(0.2), radius: 4, x: 0, y: 2)
+                .shadow(color: Color("shadowColor").opacity(0.1), radius: 10, x: 0, y: 5)
             SearchButton(key: $key)
                 .padding(.trailing)
         }
@@ -130,13 +129,13 @@ struct SearchButton : View {
             }
         } label: {
             Text("Done")
+                .foregroundStyle(Color("bgColor"))
                 .padding()
-                .foregroundStyle(Color.white)
                 .frame(maxHeight: 50)
-                .background(Color.black)
+                .background(Color("shadowColor"))
                 .clipShape(RoundedRectangle(cornerRadius: 14))
-                .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: 2)
-                .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
+                .shadow(color: Color("shadowColor").opacity(0.2), radius: 4, x: 0, y: 2)
+                .shadow(color: Color("shadowColor").opacity(0.1), radius: 10, x: 0, y: 5)
         }
     }
 }
@@ -196,11 +195,11 @@ struct PriceCard : View {
         }
         .padding()
         .frame(maxWidth: .infinity, alignment: .topLeading)
-        .background(Color.white)
+        .background(Color("bgColor"))
         .clipShape(RoundedRectangle(cornerRadius: 14))
         .padding(.horizontal)
-        .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: 2)
-        .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
+        .shadow(color: Color("shadowColor").opacity(0.2), radius: 4, x: 0, y: 2)
+        .shadow(color: Color("shadowColor").opacity(0.1), radius: 10, x: 0, y: 5)
     }
 }
 
@@ -212,7 +211,6 @@ class DataManager : ObservableObject{
     
     @Published var previousClose: Double = 0.0
     @Published var changePeriod : String = "This Month"
-    @Published var duration : String = ""
     @Published var selectedInterval: Int = 0
     
     @Published var showError : Bool = false
@@ -315,10 +313,10 @@ struct GraphCard : View {
         }
         .padding()
         .frame(maxWidth: .infinity, alignment: .topLeading)
-        .background(Color.white)
+        .background(Color("bgColor"))
         .clipShape(RoundedRectangle(cornerRadius: 14))
         .padding(.horizontal)
-        .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: 2)
-        .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
+        .shadow(color: Color("shadowColor").opacity(0.2), radius: 4, x: 0, y: 2)
+        .shadow(color: Color("shadowColor").opacity(0.1), radius: 10, x: 0, y: 5)
     }
 }

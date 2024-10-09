@@ -59,14 +59,14 @@ struct PriceChart : View {
                         AxisValueLabel {
                             Text(lastDate)
                                 .padding(.leading)
-                                .foregroundStyle(Color.black)
+                                .foregroundStyle(Color("bgColor"))
                                 .frame(width: 250)
                         }
                     } else if value.as(String.self) == lastIndex {
                         AxisValueLabel {
                             Text(currDate)
                                 .padding(.horizontal)
-                                .foregroundStyle(Color.black)
+                                .foregroundStyle(Color("bgColor"))
                                 .frame(width: 200)
                         }
                     }
