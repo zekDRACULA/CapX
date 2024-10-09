@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct SegmentedControl: View {
-    @State private var selectedInterval = 0
+    //@State private var selectedInterval = 0
     @State private var duration : String = "1mo"
     var key : String
     @ObservedObject var stock = DataManager.shared
     var body: some View {
-        Picker("Interval", selection: $selectedInterval){
+        Picker("Interval", selection: $stock.selectedInterval){
             Text("1M").tag(0)
             Text("6M").tag(1)
             Text("1Y").tag(2)
@@ -21,8 +21,8 @@ struct SegmentedControl: View {
         }
         .pickerStyle(SegmentedPickerStyle())
         .padding()
-        .onChange(of: selectedInterval) {
-            switch selectedInterval{
+        .onChange(of: stock.selectedInterval) {
+            switch stock.selectedInterval{
             case 0:
                 duration = "1mo"
                 stock.changePeriod = "This Month"
@@ -57,6 +57,7 @@ struct SegmentedControl: View {
                 do{
                     DataManager.shared.resetPrev()
                     DataManager.shared.history.resetData()
+                    print(duration)
                     let historyData = try await getHistory(key: key, duration: duration)
                     if let records = historyData.records, let firstRecord = records.first{
                         DataManager.shared.history.stockHistoryData.append(contentsOf: records)
@@ -76,5 +77,5 @@ struct SegmentedControl: View {
 }
 
 #Preview {
-    SegmentedControl(key: "1mo")
+    SegmentedControl(key: "")
 }

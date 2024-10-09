@@ -58,7 +58,7 @@ class stockHistoryManager : ObservableObject{
     static let shared = stockHistoryManager()
     @Published var stockHistoryData : [records] = []
     func resetData(){
-        stockHistoryData = []
+        stockHistoryData.removeAll()
     }
 }
 

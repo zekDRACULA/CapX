@@ -21,9 +21,7 @@ struct HomePage: View {
             ZStack{
                 VStack{
                     SearchBar(key: $key)
-                    if (history.stockHistoryData.isEmpty){
-                        notFound()
-                    }else{
+                    if (data.isLoading){
                         VStack{
                             GraphCard(key: $key)
                             PriceCard(priceCard: priceCardData[0])
@@ -31,6 +29,16 @@ struct HomePage: View {
                         }
                         .redacted(reason: .placeholder)
                         .modifier(Shimmer())
+                    }
+//                    || data.history.stockHistoryData.isEmpty
+                    else if (key == "" || data.history.stockHistoryData.isEmpty){
+                        notFound()
+                    }else{
+                        VStack{
+                            GraphCard(key: $key)
+                            PriceCard(priceCard: priceCardData[0])
+                            Spacer()
+                        }
                     }
                         
                 }
@@ -204,9 +212,13 @@ class DataManager : ObservableObject{
     
     @Published var previousClose: Double = 0.0
     @Published var changePeriod : String = "This Month"
+    @Published var duration : String = ""
+    @Published var selectedInterval: Int = 0
     
     @Published var showError : Bool = false
     @Published var ErrorMessage : String = ""
+    
+    @Published var isLoading : Bool = false
     
     func resetPrev(){
         previousClose = 0
@@ -286,7 +298,7 @@ struct GraphCard : View {
                             .fontWeight(.bold)
                             .padding(.horizontal)
                         
-                        Text("\(stock.isPositive ? "+" : "-")" + stock.priceChangeString)
+                        Text("\(stock.isPositive ? "+" : "")" + stock.priceChangeString)
                             .font(.subheadline)
                             .fontWeight(.medium)
                             .foregroundStyle(stock.isPositive ? Color.green : Color.red)
