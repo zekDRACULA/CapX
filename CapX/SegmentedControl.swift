@@ -66,6 +66,8 @@ struct SegmentedControl: View {
                         print("No recoeds found during segmented control change")
                     }
                 }catch{
+                    stock.showError = true
+                    stock.ErrorMessage = error.localizedDescription
                     print("Error fetching history Data: \(error.localizedDescription)")
                 }
             }

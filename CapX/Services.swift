@@ -7,8 +7,8 @@
 
 import Foundation
 
-//MARK: getInfo Method
 
+//MARK: getInfo Method
 func getInfo(key : String) async throws -> StockInfo{
     
 //    let apiKey : String = "973088a045mshe7b103daf73d07bp1681ddjsn1df10311601f"
@@ -49,6 +49,10 @@ func getInfo(key : String) async throws -> StockInfo{
         return try decoder.decode(StockInfo.self, from: data)
     }catch{
         print("failed to decode data getInfo : \(error.localizedDescription)")
+        await MainActor.run{
+            DataManager.shared.showError = true
+            DataManager.shared.ErrorMessage = error.localizedDescription
+        }
         throw URLError(.cannotDecodeContentData)
     }
 }
@@ -93,6 +97,10 @@ func getHistory(key: String, duration: String) async throws -> HistoryData{
         return try decoder.decode(HistoryData.self, from: data)
     }catch{
         print("failed to decode data in history: \(error.localizedDescription)")
+        await MainActor.run{
+            DataManager.shared.showError = true
+            DataManager.shared.ErrorMessage = error.localizedDescription
+        }
         throw URLError(.cannotDecodeContentData)
     }
 }

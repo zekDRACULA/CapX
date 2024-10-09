@@ -15,15 +15,14 @@ import SwiftUI
 struct HomePage: View {
     @State var key : String = ""
     @ObservedObject var history = stockHistoryManager.shared
+    @ObservedObject var data = DataManager.shared
     var body: some View {
         ScrollView{
             ZStack{
                 VStack{
                     SearchBar(key: $key)
                     if (history.stockHistoryData.isEmpty){
-                        notFound(text: "Stock Not Found")
-                    }else if(key == ""){
-                        notFound(text: "Search Stock")
+                        notFound()
                     }else{
                         VStack{
                             GraphCard(key: $key)
@@ -37,14 +36,25 @@ struct HomePage: View {
                 }
             }
         }
+        .alert(isPresented: $data.showError) {
+            Alert(
+                title: Text("Error"),
+                message: Text(data.ErrorMessage),
+                dismissButton: .cancel(Text("Dismiss")
+                                       , action: {
+                                           key = ""
+                                           data.showError = false
+                                       })
+            )
+        }
     }
 }
 
 //MARK: Not Found
 struct notFound : View {
-    var text : String = ""
+    var text : String = " Search Stock"
     var body: some View {
-        Text(text)
+        Text("Search Stock")
             .font(.title2)
             .fontWeight(.medium)
             .frame(maxWidth: .infinity)
@@ -87,6 +97,8 @@ struct SearchButton : View {
                      stockInfoManager.shared.stockInfoData = infoData
                      print("info data: \(infoData)")
                 }catch{
+                    DataManager.shared.showError = true
+                    DataManager.shared.ErrorMessage = error.localizedDescription
                     print("Error: \(error.localizedDescription)")
                 }
                 
@@ -103,6 +115,8 @@ struct SearchButton : View {
                         print("No records found in the fetched history data")
                     }
                 }catch{
+                    DataManager.shared.showError = true
+                    DataManager.shared.ErrorMessage = error.localizedDescription
                     print("Error: \(error.localizedDescription)")
                 }
             }
@@ -190,6 +204,9 @@ class DataManager : ObservableObject{
     
     @Published var previousClose: Double = 0.0
     @Published var changePeriod : String = "This Month"
+    
+    @Published var showError : Bool = false
+    @Published var ErrorMessage : String = ""
     
     func resetPrev(){
         previousClose = 0
