@@ -21,14 +21,19 @@ struct HomePage: View {
                 VStack{
                     SearchBar(key: $key)
                     if (history.stockHistoryData.isEmpty){
-                        notFound()
+                        notFound(text: "Stock Not Found")
+                    }else if(key == ""){
+                        notFound(text: "Search Stock")
                     }else{
                         VStack{
                             GraphCard(key: $key)
                             PriceCard(priceCard: priceCardData[0])
                             Spacer()
                         }
+                        .redacted(reason: .placeholder)
+                        .modifier(Shimmer())
                     }
+                        
                 }
             }
         }
@@ -37,8 +42,9 @@ struct HomePage: View {
 
 //MARK: Not Found
 struct notFound : View {
+    var text : String = ""
     var body: some View {
-        Text("Search Stock")
+        Text(text)
             .font(.title2)
             .fontWeight(.medium)
             .frame(maxWidth: .infinity)
