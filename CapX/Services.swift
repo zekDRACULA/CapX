@@ -11,8 +11,8 @@ import Foundation
 //MARK: getInfo Method
 func getInfo(key : String) async throws -> StockInfo{
     
-    //let apiKey : String = "48fe470d4cmsh65b83cc32be84eep1634a2jsn0c8aa1ba5842"
-    let apiKey : String = ""
+    let apiKey : String = "54f5255021msh6fb7888140bff8cp1fd844jsn276233b4de19"
+    //let apiKey : String = ""
     let endpoint : String = "yahoo-finance160.p.rapidapi.com"
     
     guard let url = URL(string: "https://yahoo-finance160.p.rapidapi.com/info")else{
@@ -33,13 +33,13 @@ func getInfo(key : String) async throws -> StockInfo{
     request.httpBody = try JSONSerialization.data(withJSONObject: body, options: [])
     
     await MainActor.run{
-        DataManager.shared.isLoading = true
+        MainViewModel.shared.isLoading = true
     }
     
     defer{
         Task{
             await MainActor.run{
-                DataManager.shared.isLoading = false
+                MainViewModel.shared.isLoading = false
             }
         }
     }
@@ -62,8 +62,8 @@ func getInfo(key : String) async throws -> StockInfo{
     }catch{
         print("failed to decode data getInfo : \(error.localizedDescription)")
         await MainActor.run{
-            DataManager.shared.showError = true
-            DataManager.shared.ErrorMessage = error.localizedDescription
+            MainViewModel.shared.showError = true
+            MainViewModel.shared.ErrorMessage = error.localizedDescription
         }
         throw URLError(.cannotDecodeContentData)
     }
@@ -72,8 +72,8 @@ func getInfo(key : String) async throws -> StockInfo{
 
 //MARK: getHistory Method
 func getHistory(key: String, duration: String) async throws -> HistoryData{
-    //let apiKey : String = "48fe470d4cmsh65b83cc32be84eep1634a2jsn0c8aa1ba5842"
-   let apiKey = ""
+    let apiKey : String = "54f5255021msh6fb7888140bff8cp1fd844jsn276233b4de19"
+   //let apiKey = ""
     let endPoint : String = "yahoo-finance160.p.rapidapi.com"
     
     
@@ -95,13 +95,13 @@ func getHistory(key: String, duration: String) async throws -> HistoryData{
     request.httpBody = try JSONSerialization.data(withJSONObject: body, options: [])
     
     await MainActor.run{
-        DataManager.shared.isLoading = true
+        MainViewModel.shared.isLoading = true
     }
     
     defer{
         Task{
             await MainActor.run{
-                DataManager.shared.isLoading = false
+                MainViewModel.shared.isLoading = false
             }
         }
     }
@@ -123,8 +123,8 @@ func getHistory(key: String, duration: String) async throws -> HistoryData{
     }catch{
         print("failed to decode data in history: \(error.localizedDescription)")
         await MainActor.run{
-            DataManager.shared.showError = true
-            DataManager.shared.ErrorMessage = error.localizedDescription
+            MainViewModel.shared.showError = true
+            MainViewModel.shared.ErrorMessage = error.localizedDescription
         }
         throw URLError(.cannotDecodeContentData)
     }

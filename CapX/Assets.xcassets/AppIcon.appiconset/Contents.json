@@ -1,6 +1,7 @@
 {
   "images" : [
     {
+      "filename" : "CapX_Light.jpeg",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -12,6 +13,7 @@
           "value" : "dark"
         }
       ],
+      "filename" : "CapX_Dark.jpeg",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -23,6 +25,7 @@
           "value" : "tinted"
         }
       ],
+      "filename" : "CapX_Tinted.jpeg",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"

@@ -11,7 +11,7 @@ struct SegmentedControl: View {
     //@State private var selectedInterval = 0
     @State private var duration : String = "1mo"
     var key : String
-    @ObservedObject var stock = DataManager.shared
+    @ObservedObject var stock = MainViewModel.shared
     var body: some View {
         Picker("Interval", selection: $stock.selectedInterval){
             Text("1M").tag(0)
@@ -55,13 +55,13 @@ struct SegmentedControl: View {
                 
                 //MARK: getHistory()
                 do{
-                    DataManager.shared.resetPrev()
-                    DataManager.shared.history.resetData()
+                    MainViewModel.shared.resetPrev()
+                    MainViewModel.shared.history.resetData()
                     print(duration)
                     let historyData = try await getHistory(key: key, duration: duration)
                     if let records = historyData.records, let firstRecord = records.first{
-                        DataManager.shared.history.stockHistoryData.append(contentsOf: records)
-                        DataManager.shared.previousClose = firstRecord.closeDouble ?? 0
+                        MainViewModel.shared.history.stockHistoryData.append(contentsOf: records)
+                        MainViewModel.shared.previousClose = firstRecord.closeDouble ?? 0
                         print("fetched Sucessfully in segmented Control:\(records)")
                     }else{
                         print("No recoeds found during segmented control change")

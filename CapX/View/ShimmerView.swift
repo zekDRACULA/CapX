@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ShimmerView : View {
     var body: some View {
-        HomePage()
+        HomePageView()
             .redacted(reason: .placeholder)
             .modifier(Shimmer())
     }
