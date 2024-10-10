@@ -53,14 +53,8 @@ struct records : Codable, Identifiable{
     }
 }
 
-//MARK: manager for stock history
-class stockHistoryManager : ObservableObject{
-    static let shared = stockHistoryManager()
-    @Published var stockHistoryData : [records] = []
-    func resetData(){
-        stockHistoryData.removeAll()
-    }
-}
+
+
 
 
 

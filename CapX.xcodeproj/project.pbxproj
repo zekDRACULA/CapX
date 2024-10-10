@@ -11,11 +11,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		B12292CC2CB8385500A6AD46 /* Services */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Services;
-			sourceTree = "<group>";
-		};
 		B183C1122CAE9847000DAE29 /* CapX */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = CapX;
@@ -39,7 +34,6 @@
 			children = (
 				B183C1122CAE9847000DAE29 /* CapX */,
 				B183C1112CAE9847000DAE29 /* Products */,
-				B12292CC2CB8385500A6AD46 /* Services */,
 			);
 			sourceTree = "<group>";
 		};
@@ -67,7 +61,6 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				B12292CC2CB8385500A6AD46 /* Services */,
 				B183C1122CAE9847000DAE29 /* CapX */,
 			);
 			name = CapX;

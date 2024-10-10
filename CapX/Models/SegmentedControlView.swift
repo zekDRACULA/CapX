@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SegmentedControlView: View {
-    //@State private var selectedInterval = 0
+    
     @State private var duration : String = "1mo"
     var key : String
     @ObservedObject var stock = MainViewModel.shared

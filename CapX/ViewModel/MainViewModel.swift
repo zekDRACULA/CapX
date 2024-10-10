@@ -31,6 +31,10 @@ final class MainViewModel : ObservableObject{
         view.stockInfoData.currentPrice ?? 0
     }
     
+    var percentageChangeString : String{
+        String(format: "%.2f", (priceChange/previousClose)*100)
+    }
+    
     var currentPriceString : String{
         String(format: "%.2f", currPrice)
     }

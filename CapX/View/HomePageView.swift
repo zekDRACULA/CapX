@@ -21,25 +21,24 @@ struct HomePageView: View {
             ZStack{
                 VStack(spacing: 12){
                     SearchBarView(key: $key)
-//                    if (data.isLoading){
-//                        VStack{
-//                            GraphCardView(key: $key)
-//                            PriceCardView()
-//                            Spacer()
-//                        }
-//                        .redacted(reason: .placeholder)
-//                        .modifier(Shimmer())
-//                    }
-//                    else if (key == "" || data.history.stockHistoryData.isEmpty){
-//                        NotFoundView()
-//                    }else{
+                    if (data.isLoading){
+                        VStack{
+                            GraphCardView(key: $key)
+                            PriceCardView()
+                            Spacer()
+                        }
+                        .redacted(reason: .placeholder)
+                        .modifier(Shimmer())
+                    }
+                    else if (key == "" || data.history.stockHistoryData.isEmpty){
+                        NotFoundView()
+                    }else{
                     VStack(spacing: 12){
                             GraphCardView(key: $key)
                             PriceCardView()
                             Spacer()
                         }
-                    //}
-                        
+                    }
                 }
             }
         }

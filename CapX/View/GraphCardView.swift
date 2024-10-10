@@ -34,10 +34,16 @@ struct GraphCardView : View {
                             .fontWeight(.bold)
                             .padding(.horizontal)
                         
-                        Text("\(stock.isPositive ? "+" : "")" + stock.priceChangeString)
+                    HStack{
+                            Text("\(stock.isPositive ? "+" : "")" + stock.priceChangeString)
+                                .font(.subheadline)
+                                .fontWeight(.medium)
+                                .foregroundStyle(stock.isPositive ? Color.green : Color.red)
+                        Text("(" + "\(stock.isPositive ? "+" : "")" + stock.percentageChangeString+"%)")
                             .font(.subheadline)
                             .fontWeight(.medium)
                             .foregroundStyle(stock.isPositive ? Color.green : Color.red)
+                        }
                     
                     Text("\(stock.changePeriod)")
                         .font(.footnote)
