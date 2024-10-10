@@ -21,7 +21,7 @@ Screenshots
 
 
 <!-- DARK MODE -->
-<img src="https://github.com/user-attachments/assets/bdae2b0d-a35d-4e34-8813-9a86b9631005" width="30" height="40" />
+<img src="https://github.com/user-attachments/assets/bdae2b0d-a35d-4e34-8813-9a86b9631005" width="40" height="60" />
 
 <img src="https://github.com/user-attachments/assets/885d7dfc-648a-4e82-8cd9-1f8f1e9613f8" width="20" height="12" />
 
