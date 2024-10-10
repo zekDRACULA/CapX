@@ -9,7 +9,7 @@ import Charts
 
 
 
-struct PriceChart : View {
+struct PriceChartView : View {
     @ObservedObject var price = PriceChartViewModel.shared
     var key : String
    
@@ -52,10 +52,10 @@ struct PriceChart : View {
         }
         .frame(maxWidth: .infinity)
         .frame(height: 300)
-        SegmentedControl(key: key)
+        SegmentedControlView(key: key)
     }
 }
 
 #Preview {
-    PriceChart(key: "1mo")
+    PriceChartView(key: "1mo")
 }

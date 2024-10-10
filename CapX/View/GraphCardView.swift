@@ -46,7 +46,7 @@ struct GraphCardView : View {
                 }
             }
             Spacer()
-            PriceChart(key: key)
+            PriceChartView(key: key)
             Spacer()
         }
         .padding()

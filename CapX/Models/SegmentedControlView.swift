@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SegmentedControl: View {
+struct SegmentedControlView: View {
     //@State private var selectedInterval = 0
     @State private var duration : String = "1mo"
     var key : String
@@ -77,5 +77,5 @@ struct SegmentedControl: View {
 }
 
 #Preview {
-    SegmentedControl(key: "")
+    SegmentedControlView(key: "")
 }
