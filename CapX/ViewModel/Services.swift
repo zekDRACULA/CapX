@@ -17,6 +17,10 @@ func getInfo(key : String) async throws -> StockInfo{
     
     guard let url = URL(string: "https://yahoo-finance160.p.rapidapi.com/info")else{
         print("Invalid Url")
+        await MainActor.run{
+            MainViewModel.shared.showError = true
+            MainViewModel.shared.ErrorMessage = "Invalid Url"
+        }
         throw URLError(.badURL)
     }
     
@@ -48,11 +52,19 @@ func getInfo(key : String) async throws -> StockInfo{
     
     guard let httpResponse = response as? HTTPURLResponse else{
         print("failed to cast response to HTTPURLResponse")
+        await MainActor.run{
+            MainViewModel.shared.showError = true
+            MainViewModel.shared.ErrorMessage = "failed to cast response to HTTPURLResponse"
+        }
         throw URLError(.badServerResponse)
     }
     
     guard (httpResponse.statusCode == 200) else{
         print("Invalid status code: \(httpResponse.statusCode)")
+        await MainActor.run{
+            MainViewModel.shared.showError = true
+            MainViewModel.shared.ErrorMessage = "Invalid status code: \(httpResponse.statusCode)"
+        }
         throw URLError(.badServerResponse)
     }
     
@@ -80,6 +92,10 @@ func getHistory(key: String, duration: String) async throws -> HistoryData{
     
     guard let url = URL(string: "https://yahoo-finance160.p.rapidapi.com/history") else{
         print("Invalid Url")
+        await MainActor.run{
+            MainViewModel.shared.showError = true
+            MainViewModel.shared.ErrorMessage = "Invalid Url"
+        }
         throw URLError(.badURL)
     }
     
@@ -110,11 +126,19 @@ func getHistory(key: String, duration: String) async throws -> HistoryData{
     
     guard let httpResponse = response as? HTTPURLResponse else{
         print("failed to cast response to HTTPURLResponse")
+        await MainActor.run{
+            MainViewModel.shared.showError = true
+            MainViewModel.shared.ErrorMessage = "failed to cast response to HTTPURLResponse"
+        }
         throw URLError(.badServerResponse)
     }
     
     guard(httpResponse.statusCode == 200) else{
         print("Invalid status code: \(httpResponse.statusCode)")
+        await MainActor.run{
+            MainViewModel.shared.showError = true
+            MainViewModel.shared.ErrorMessage = "Invalid status code: \(httpResponse.statusCode)"
+        }
         throw URLError(.badServerResponse)
     }
     do{

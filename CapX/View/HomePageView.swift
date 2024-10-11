@@ -32,6 +32,7 @@ struct HomePageView: View {
                     }
                     else if (key == "" || data.history.stockHistoryData.isEmpty){
                         NotFoundView()
+    
                     }else{
                     VStack(spacing: 12){
                             GraphCardView(key: $key)
@@ -69,11 +70,11 @@ struct SearchButton : View {
                 do{
                      let infoData = try await getInfo(key: key.capitalized)
                      StockInfoManager.shared.stockInfoData = infoData
-                     print("info data: \(infoData)")
+                     //print("info data: \(infoData)")
                 }catch{
                     MainViewModel.shared.showError = true
                     MainViewModel.shared.ErrorMessage = error.localizedDescription
-                    print("Error: \(error.localizedDescription)")
+                    //print("Error: \(error.localizedDescription)")
                 }
                 
                 //MARK: getHistory()
@@ -84,14 +85,16 @@ struct SearchButton : View {
                     if let records = historyArray.records, let firstRecord = records.first{
                         stockHistoryManager.shared.stockHistoryData.append(contentsOf: records)
                         MainViewModel.shared.previousClose = firstRecord.closeDouble ?? 0
-                        print("data for records from search button: \(records.count)")
+                        //print("data for records from search button: \(records.count)")
                     }else{
-                        print("No records found in the fetched history data")
+                        print("No records found for the typed symbol")
+                        MainViewModel.shared.showError = true
+                        MainViewModel.shared.ErrorMessage = "No records found in the fetched history data"
                     }
                 }catch{
                     MainViewModel.shared.showError = true
                     MainViewModel.shared.ErrorMessage = error.localizedDescription
-                    print("Error: \(error.localizedDescription)")
+                    //print("Error: \(error.localizedDescription)")
                 }
             }
         } label: {

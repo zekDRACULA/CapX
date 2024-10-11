@@ -48,7 +48,7 @@ struct SegmentedControlView: View {
                 do{
                      let infoData = try await getInfo(key: key.capitalized)
                      stock.view.stockInfoData = infoData
-                     print("info data: \(infoData)")
+                     //print("info data: \(infoData)")
                 }catch{
                     print("Error: \(error.localizedDescription)")
                 }
@@ -62,14 +62,14 @@ struct SegmentedControlView: View {
                     if let records = historyData.records, let firstRecord = records.first{
                         MainViewModel.shared.history.stockHistoryData.append(contentsOf: records)
                         MainViewModel.shared.previousClose = firstRecord.closeDouble ?? 0
-                        print("fetched Sucessfully in segmented Control:\(records)")
+                        //print("fetched Sucessfully in segmented Control:\(records)")
                     }else{
-                        print("No recoeds found during segmented control change")
+                        //print("No recoeds found during segmented control change")
                     }
                 }catch{
                     stock.showError = true
                     stock.ErrorMessage = error.localizedDescription
-                    print("Error fetching history Data: \(error.localizedDescription)")
+                    //print("Error fetching history Data: \(error.localizedDescription)")
                 }
             }
         }
